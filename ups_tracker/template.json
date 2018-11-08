@@ -1,0 +1,20 @@
+{
+  "UPSSecurity": {
+    "UsernameToken": {
+      "Username": "",
+      "Password": ""
+    },
+    "ServiceAccessToken": {
+      "AccessLicenseNumber": ""
+    }
+    },
+    "TrackRequest": {
+      "Request": {
+        "RequestOption": "1",
+        "TransactionReference": {
+          "CustomerContext": "Tracking package."
+      }
+    },
+    "InquiryNumber": ""
+    }
+}
