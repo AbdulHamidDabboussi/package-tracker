@@ -1,6 +1,5 @@
 import json
 import requests
-from pprint import pprint
 
 TEMPLATE = json.load(open("template.json"))
 USER, PASSWORD, LICENSE = open("sec.txt").read().splitlines()
@@ -35,5 +34,3 @@ def ups_tracker(tracking_number):
                     "CODE": response["TrackResponse"]["Shipment"]["Package"]["Activity"]["Status"]["Type"],
                     "DESCRIPTION": response["TrackResponse"]["Shipment"]["Package"]["Activity"]["Status"]["Description"]}
     }
-
-pprint(ups_tracker("1Z1A97Y80323171528"))
