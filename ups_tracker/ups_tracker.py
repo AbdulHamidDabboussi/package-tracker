@@ -56,7 +56,7 @@ def ups_tracker(tracking_number):
     Reads credentials from sec.txt, send request to UPS, parse response using
     ups_response_parser()
     """
-    template = json.load(open("template.json"))
+    template = json.load(open("template.json", "r"))
     user, password, license_key = open("sec.txt").read().splitlines()
     url = "https://onlinetools.ups.com/rest/Track"
 
