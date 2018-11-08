@@ -5,7 +5,7 @@ A work-in-progress package tracker completely written in Python.
 ## Todo List
 - [ ] Implement tracker for major shipping services
     - [ ] USPS
-    - [ ] UPS
+    - [X] UPS
     - [ ] FedEx
     - [ ] DHL
     - [ ] Aramex
