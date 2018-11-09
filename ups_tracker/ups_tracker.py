@@ -7,6 +7,22 @@ Tracks UPS pacakages using credentials in sec.txt file.
 import json
 import requests
 
+def json_generator(tracking_number):
+    """
+    Generates request JSON using the auth info in sec.text and the tracking
+    number. 
+    """
+    template = json.load(open("template.json", "r"))
+    user, password, license_key = open("sec.txt").read().splitlines()
+
+    request = template
+    request["UPSSecurity"]["UsernameToken"]["Username"] = user
+    request["UPSSecurity"]["UsernameToken"]["Password"] = password
+    request["UPSSecurity"]["ServiceAccessToken"]["AccessLicenseNumber"] = license_key
+    request["TrackRequest"]["InquiryNumber"] = tracking_number
+
+    return request
+
 def ups_response_parser(response):
     """
     Parses JSON response from ups_tracker().
@@ -53,19 +69,12 @@ def ups_response_parser(response):
 
 def ups_tracker(tracking_number):
     """
-    Reads credentials from sec.txt, send request to UPS, parse response using
-    ups_response_parser()
+    Uses json_generator to generate request, sends it, then parses response 
+    using ups_response_parser()
     """
-    template = json.load(open("template.json", "r"))
-    user, password, license_key = open("sec.txt").read().splitlines()
+    request = json_generator(tracking_number)
+
     url = "https://onlinetools.ups.com/rest/Track"
-
-    request = template
-    request["UPSSecurity"]["UsernameToken"]["Username"] = user
-    request["UPSSecurity"]["UsernameToken"]["Password"] = password
-    request["UPSSecurity"]["ServiceAccessToken"]["AccessLicenseNumber"] = license_key
-    request["TrackRequest"]["InquiryNumber"] = tracking_number
-
     response = requests.post(url, data=json.dumps(request)).json()
 
     return ups_response_parser(response)
