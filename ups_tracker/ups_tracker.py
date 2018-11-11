@@ -4,15 +4,15 @@ ups_tracker:
 Tracks UPS pacakages using credentials in sec.txt file.
 """
 
-import json
-import requests
+from json import load, dumps
+from requests import post
 
 def json_generator(tracking_number):
     """
     Generates request JSON using the auth info in sec.text and the tracking
     number. 
     """
-    template = json.load(open("template.json", "r"))
+    template = load(open("template.json", "r"))
     user, password, license_key = open("sec.txt").read().splitlines()
 
     request = template
@@ -75,6 +75,6 @@ def ups_tracker(tracking_number):
     request = json_generator(tracking_number)
 
     url = "https://onlinetools.ups.com/rest/Track"
-    response = requests.post(url, data=json.dumps(request)).json()
+    response = post(url, data=dumps(request)).json()
 
     return ups_response_parser(response)
